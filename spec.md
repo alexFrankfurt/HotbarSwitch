@@ -1,0 +1,2 @@
+Implement minecraft addon which works for minecraft bedrock edition for windows. This addon should do the following:
+1. When we focus on the current hotbar slot, if user presses middle mouse button it should switch item in current hotbar slot with item in the inventory above that item.
