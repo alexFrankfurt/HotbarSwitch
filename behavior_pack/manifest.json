@@ -2,18 +2,17 @@
   "format_version": 2,
   "header": {
     "name": "Hotbar Switch",
-    "description": "Swap hotbar with above inventory: /hotbar:swap",
+    "description": "Swap hotbar with above row: /hotbar:swap",
     "uuid": "3d36eaf0-7f41-42cb-aaa7-70ae5a4b8325",
-    "version": [1, 6, 0],
+    "version": [2, 0, 0],
     "min_engine_version": [1, 21, 90]
   },
   "modules": [
     {
-      "description": "Server Scripts",
       "type": "script",
       "language": "javascript",
       "uuid": "70646f62-c5ca-4997-aeb2-94de3530de07",
-      "version": [1, 6, 0],
+      "version": [2, 0, 0],
       "entry": "scripts/main.js"
     }
   ],

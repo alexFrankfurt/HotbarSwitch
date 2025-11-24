@@ -1,45 +1,37 @@
 import { system } from "@minecraft/server";
 
 system.beforeEvents.startup.subscribe((event) => {
-  const commandRegistry = event.customCommandRegistry;
+  const reg = event.customCommandRegistry;
 
-  const hotbarSwapCommand = {
+  reg.registerCommand({
     name: "hotbar:swap",
-    description: "Swap selected hotbar slot with item above in inventory",
-    permissionLevel: 0  // 0 = Any (fallback for older beta; use CustomCommandPermissionLevel.Any in 2.5.0+)
-  };
-
-  commandRegistry.registerCommand(hotbarSwapCommand, (origin, input) => {
+    description: "Swap selected hotbar slot with the item directly above it",
+    permissionLevel: 0   // Any
+  }, (origin, input) => {
     const player = origin.sourceEntity;
     if (!player || player.typeId !== "minecraft:player") return;
 
+    // Делаем всё с небольшой задержкой — гарантирует, что контейнер уже «готов»
     system.run(() => {
-      const selectedSlot = player.selectedSlotIndex;
-      const inventoryComponent = player.getComponent("minecraft:inventory");
-      if (!inventoryComponent) {
-        player.sendMessage("§cInventory error!");
-        return;
-      }
+      const selected = player.selectedSlotIndex;           // 0–8
+      const inv = player.getComponent("minecraft:inventory");
+      if (!inv) return;
 
-      const container = inventoryComponent.container;
-      const aboveSlot = selectedSlot + 9;
-
-      if (aboveSlot >= container.size) {
-        player.sendMessage("§cInvalid slot!");
-        return;
-      }
+      const container = inv.container;
+      const aboveSlot = selected + 9;                       // 9–17
 
       const itemAbove = container.getItem(aboveSlot);
       if (!itemAbove) {
-        player.sendMessage("§cNo item above!");
+        player.sendMessage("§cNo item above this hotbar slot!");
         return;
       }
 
-      const itemHotbar = container.getItem(selectedSlot);
-      container.setItem(selectedSlot, itemAbove);
+      const itemHotbar = container.getItem(selected);
+
+      container.setItem(selected, itemAbove);
       container.setItem(aboveSlot, itemHotbar);
 
-      player.sendMessage(`§aSwapped slot ${selectedSlot + 1}!`);
+      player.sendMessage(`§aSwapped slot ${selected + 1} ↔ ${aboveSlot + 1}`);
     });
   });
 });
