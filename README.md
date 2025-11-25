@@ -29,8 +29,7 @@ ren HotbarSwitch.zip HotbarSwitch.mcpack
 - Swaps the item in that slot with the item in the inventory slot above it.
 - Only swaps if an item exists above; otherwise, no action.
 
-
-<div align="center"><iframe width="560" height="315" src="https://www.youtube.com/embed/vvZIx3SVCc4?si=fL-CLMd8uiU4EOP7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+[watch](https://www.youtube.com/watch?v=vvZIx3SVCc4)
 
 
 ## Requirements
