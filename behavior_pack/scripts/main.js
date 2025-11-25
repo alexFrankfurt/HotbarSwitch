@@ -1,37 +1,42 @@
-import { system } from "@minecraft/server";
+import { world, system, InputButton } from "@minecraft/server";
 
-system.beforeEvents.startup.subscribe((event) => {
-  const reg = event.customCommandRegistry;
+// Per-player last sneak timestamp
+world.afterEvents.playerButtonInput.subscribe((ev) => {
+  const player = ev.player;
+  if (ev.button !== InputButton.Sneak) return;
 
-  reg.registerCommand({
-    name: "hotbar:swap",
-    description: "Swap selected hotbar slot with the item directly above it",
-    permissionLevel: 0   // Any
-  }, (origin, input) => {
-    const player = origin.sourceEntity;
-    if (!player || player.typeId !== "minecraft:player") return;
+  const now = Date.now();
+  const timeSinceLast = player.lastSneakTime ? now - player.lastSneakTime : Infinity;
 
-    // Делаем всё с небольшой задержкой — гарантирует, что контейнер уже «готов»
+  if (timeSinceLast < 400) {  // Double sneak: <400ms between taps
+    ev.cancel = true;  // Block 2nd sneak (no actual sneak)
+    
+    // Reset timer
+    player.lastSneakTime = null;
+
     system.run(() => {
-      const selected = player.selectedSlotIndex;           // 0–8
+      const selected = player.selectedSlotIndex;
       const inv = player.getComponent("minecraft:inventory");
       if (!inv) return;
 
       const container = inv.container;
-      const aboveSlot = selected + 9;                       // 9–17
+      const bottomSlot = selected + 27;  // Bottom row: 27-35
 
-      const itemAbove = container.getItem(aboveSlot);
-      if (!itemAbove) {
-        player.sendMessage("§cNo item above this hotbar slot!");
+      const itemBottom = container.getItem(bottomSlot);
+      if (!itemBottom) {
+        player.sendMessage("§cNo item in bottom row slot!");
         return;
       }
 
       const itemHotbar = container.getItem(selected);
+      container.setItem(selected, itemBottom);
+      container.setItem(bottomSlot, itemHotbar);
 
-      container.setItem(selected, itemAbove);
-      container.setItem(aboveSlot, itemHotbar);
-
-      player.sendMessage(`§aSwapped slot ${selected + 1} ↔ ${aboveSlot + 1}`);
+      player.sendMessage(`§aSwapped ${selected + 1} ↔ bottom ${bottomSlot - 26}!`);
+      player.playSound("random.orb", { pitch: 1.5 });
     });
-  });
+  } else {
+    // Single sneak: record time (allow normal sneak)
+    player.lastSneakTime = now;
+  }
 });
