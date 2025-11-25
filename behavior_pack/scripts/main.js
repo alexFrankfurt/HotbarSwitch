@@ -1,6 +1,5 @@
 import { world, system, InputButton } from "@minecraft/server";
 
-// Per-player last sneak timestamp
 world.afterEvents.playerButtonInput.subscribe((ev) => {
   const player = ev.player;
   if (ev.button !== InputButton.Sneak) return;
@@ -8,10 +7,8 @@ world.afterEvents.playerButtonInput.subscribe((ev) => {
   const now = Date.now();
   const timeSinceLast = player.lastSneakTime ? now - player.lastSneakTime : Infinity;
 
-  if (timeSinceLast < 400) {  // Double sneak: <400ms between taps
-    ev.cancel = true;  // Block 2nd sneak (no actual sneak)
-    
-    // Reset timer
+  if (timeSinceLast < 400) {
+    ev.cancel = true;
     player.lastSneakTime = null;
 
     system.run(() => {
@@ -20,23 +17,33 @@ world.afterEvents.playerButtonInput.subscribe((ev) => {
       if (!inv) return;
 
       const container = inv.container;
-      const bottomSlot = selected + 27;  // Bottom row: 27-35
+      const bottomSlot = selected + 27;
 
+      // ALWAYS SWAP: Get both items (null = empty)
       const itemBottom = container.getItem(bottomSlot);
-      if (!itemBottom) {
-        player.sendMessage("§cNo item in bottom row slot!");
-        return;
-      }
-
       const itemHotbar = container.getItem(selected);
+
+      // Perform swap (setItem accepts null to clear)
       container.setItem(selected, itemBottom);
       container.setItem(bottomSlot, itemHotbar);
 
-      player.sendMessage(`§aSwapped ${selected + 1} ↔ bottom ${bottomSlot - 26}!`);
-      player.playSound("random.orb", { pitch: 1.5 });
+      // Feedback: Check what happened
+      let msg = `§aSwapped ${selected + 1} ↔ bottom ${bottomSlot - 26}!`;
+      if (!itemBottom && !itemHotbar) {
+        msg = `§7Nothing to swap (both empty)`;
+      } else if (!itemBottom) {
+        msg = `§eMoved hotbar item to bottom!`;
+      } else if (!itemHotbar) {
+        msg = `§ePulled bottom item to hotbar!`;
+      }
+      player.sendMessage(msg);
+
+      // Sound only if something moved
+      if (itemBottom || itemHotbar) {
+        player.playSound("random.orb", { pitch: 1.5 });
+      }
     });
   } else {
-    // Single sneak: record time (allow normal sneak)
     player.lastSneakTime = now;
   }
 });
