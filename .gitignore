@@ -1,3 +1,17 @@
 Example working
 
 HotbarSwitch.mcpack
+
+# Gradle build outputs
+.gradle/
+**/.gradle/
+**/build/
+**/out/
+
+# Keep the Gradle wrapper scripts/jar checked in
+!gradle/wrapper/gradle-wrapper.jar
+!hotbar-switch-mod/gradle/wrapper/gradle-wrapper.jar
+!/gradlew
+!/gradlew.bat
+!hotbar-switch-mod/gradlew
+!hotbar-switch-mod/gradlew.bat
