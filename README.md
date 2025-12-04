@@ -12,6 +12,7 @@ This addon allows you to swap the item in your currently selected hotbar slot wi
 ## Development
 
 ```pwsh
+cd hotbar-switch-mod && .\gradlew build
 powershell Compress-Archive -Path behavior_pack\* -DestinationPath HotbarSwitch.zip
 ren HotbarSwitch.zip HotbarSwitch.mcpack
 ```
