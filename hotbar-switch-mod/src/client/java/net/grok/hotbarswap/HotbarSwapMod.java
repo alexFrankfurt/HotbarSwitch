@@ -2,6 +2,7 @@ package net.grok.hotbarswap;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.grok.hotbarswap.mixin.PlayerInventoryAccessor;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.entity.player.PlayerInventory;
@@ -39,8 +40,8 @@ public class HotbarSwapMod implements ClientModInitializer {
 
     private static void performSwap(ClientPlayerEntity player) {
         PlayerInventory inv = player.getInventory();
-        int sel = inv.selectedSlot;
-        int hotbarSlot = 36 + sel;  // Hotbar slots: 36-44
+        int sel = ((PlayerInventoryAccessor) inv).getSelectedSlot();
+        int hotbarSlot = sel;  // Hotbar slots: 36-44
         int bottomSlot = 27 + sel;  // Bottom row: 27-35
 
         ItemStack hotbarStack = inv.getStack(hotbarSlot);

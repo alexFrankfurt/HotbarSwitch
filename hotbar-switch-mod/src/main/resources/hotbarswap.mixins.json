@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "net.grok.hotbarswap.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "hotbarswap.refmap.json",
+  "client": [
+    "PlayerInventoryAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

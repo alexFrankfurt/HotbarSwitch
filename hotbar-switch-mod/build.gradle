@@ -9,6 +9,11 @@ repositories {
         name = 'Fabric'
         url = 'https://maven.fabricmc.net/'
     }
+    maven {
+        name = 'Sponge'
+        url = 'https://repo.spongepowered.org/maven'
+    }
+    mavenCentral()
     gradlePluginPortal()
 }
 
@@ -22,6 +27,7 @@ base {
 
 loom {
     splitEnvironmentSourceSets()
+    mixin.defaultRefmapName = "hotbarswap.refmap.json"
 
     mods {
         "hotbarswap" {
@@ -36,6 +42,8 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+    clientAnnotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
 processResources {
