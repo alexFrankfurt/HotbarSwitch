@@ -29,6 +29,9 @@ ren HotbarSwitch.zip HotbarSwitch.mcpack
 - Swaps the item in that slot with the item in the inventory slot above it.
 - Only swaps if an item exists above; otherwise, no action.
 
+[watch](https://www.youtube.com/watch?v=vvZIx3SVCc4)
+
+
 ## Requirements
 
 - Minecraft Bedrock Edition 1.19.0 or later.
