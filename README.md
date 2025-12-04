@@ -1,4 +1,4 @@
-# Hotbar Switch Addon for Minecraft Bedrock Edition
+# Hotbar Switch Addon for Minecraft Bedrock and Java Edition
 
 This addon allows you to swap the item in your currently selected hotbar slot with the item directly above it in your inventory by taping shift (sneak).
 
