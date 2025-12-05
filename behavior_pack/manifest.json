@@ -5,10 +5,7 @@
     "description": "Double Sneak (quick 2x Shift) to ALWAYS swap hotbar ↔ bottom row (+27). Works even if empty!",
     "uuid": "3d36eaf0-7f41-42cb-aaa7-70ae5a4b8325",
     "version": [2, 6, 0],
-    "min_engine_version": [1, 21, 70],
-    "metadata": {
-      "product_type": "addon"
-    }
+    "min_engine_version": [1, 21, 70]
   },
   "modules": [
     {
@@ -19,6 +16,9 @@
       "entry": "scripts/main.js"
     }
   ],
+  "metadata": {
+    "product_type": "addon"
+  },
   "dependencies": [
     {
       "module_name": "@minecraft/server",
