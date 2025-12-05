@@ -1,6 +1,6 @@
 # Hotbar Switch Addon for Minecraft Bedrock and Java Edition
 
-This addon allows you to swap the item in your currently selected hotbar slot with the item directly above it in your inventory by taping shift (sneak) (once or twice>.
+This addon allows you to swap the item in your currently selected hotbar slot with the item directly above it in your inventory by taping shift (sneak) (once or twice).
 
 ## Installation
 
@@ -22,14 +22,13 @@ ren HotbarSwitch.zip HotbarSwitch.mcpack
 ## Usage
 
 3. In-game, select a hotbar slot (1-9 keys).
-4. Press middle mouse to swap the item in that slot with the item above it in the inventory.
+4. Press shift (sneak) (once or twice) to swap the item in that slot with the item above it in the inventory.
    - If there is no item above, nothing happens.
 
 ## How It Works
 
 - When executed, it checks the player's selected hotbar slot.
 - Swaps the item in that slot with the item in the inventory slot above it.
-- Only swaps if an item exists above; otherwise, no action.
 
 [watch](https://www.youtube.com/watch?v=vvZIx3SVCc4)
 
@@ -37,7 +36,7 @@ ren HotbarSwitch.zip HotbarSwitch.mcpack
 ## Requirements
 
 - Minecraft Bedrock or Java Edition 1.19.0 or later.
-- Experimental Scripting enabled.
+- ? Experimental Scripting enabled.
 
 ## Notes
 
