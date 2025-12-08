@@ -10,10 +10,11 @@ This addon allows you to swap the item in your currently selected hotbar slot wi
 4. Enable "Experimental Scripting" in World Settings if required (for scripting features).
 
 ## Development
-
+Java mod:
 ```pwsh
 cd hotbar-switch-mod && .\gradlew build
 ```
+Bedrock behaviour pack:
 ```pwsh
 powershell Compress-Archive -Path behavior_pack\* -DestinationPath HotbarSwitch.zip
 ren HotbarSwitch.zip HotbarSwitch.mcpack
